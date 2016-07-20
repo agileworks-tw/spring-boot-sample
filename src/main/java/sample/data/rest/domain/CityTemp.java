@@ -14,39 +14,63 @@
  * limitations under the License.
  */
 
-package sample.data.rest.service;
+package sample.data.rest.domain;
 
 import java.io.Serializable;
 
-import org.springframework.util.Assert;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-public class CitySearchCriteria implements Serializable {
+@Entity
+public class CityTemp implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Column(nullable = false)
 	private String name;
 
-	public CitySearchCriteria() {
+	@Column(nullable = false)
+	private String state;
+
+	@Column(nullable = false)
+	private String country;
+
+	@Column(nullable = false)
+	private String map;
+
+	protected CityTemp() {
 	}
 
-	public CitySearchCriteria(String name) {
-		Assert.notNull(name, "Name must not be null");
+	public CityTemp(String name, String country) {
+		super();
 		this.name = name;
+		this.country = country;
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getState() {
+		return this.state;
 	}
 
-	public String getNames() {
-		return this.name;
+	public String getCountry() {
+		return this.country;
 	}
 
-	public void setNames(String name) {
-		this.name = name;
+	public String getMap() {
+		return this.map;
+	}
+
+	@Override
+	public String toString() {
+		return getName() + "," + getState() + "," + getCountry();
 	}
 }
