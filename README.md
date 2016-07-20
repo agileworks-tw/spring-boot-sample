@@ -1,4 +1,4 @@
-start server
+start server test
 ------------
 
 1.	`cd data-rest`
