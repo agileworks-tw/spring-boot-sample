@@ -25,6 +25,11 @@ pipeline {
         }
       }
     }
+    stage('package') {
+      steps {
+        archiveArtifacts 'mvn package'
+      }
+    }
   }
   post {
     always {
