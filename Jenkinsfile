@@ -36,7 +36,7 @@ pipeline {
     }
     stage('mvn command') {
       steps {
-        sh 'docker run -v `pwd`:/app -v  $HOME/.m2:/root/.m2 -w /app -p 8800:8000 localhost:5000/maven mvn package'
+        sh 'docker run -v `pwd`:/app -v Â $HOME/.m2:/root/.m2 -w /app -p 8800:8000 localhost:5000/maven mvn package'
       }
     }
     stage('archive') {
