@@ -6,7 +6,7 @@ pipeline {
         checkout scm
       }
     }
-    stage('') {
+    stage('Test') {
       steps {
         sh 'mvn cobertura:cobertura test'
       }
