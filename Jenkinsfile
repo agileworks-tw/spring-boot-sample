@@ -4,7 +4,7 @@ pipeline {
     stage('checkout project&test') {
       steps {
         checkout scm
-        sh 'mvn cobertura:cobertura test'
+        sh 'docker run -v `pwd`:/app -v $HOME/.m2:/root/.m2 -w /app localhost:5000/maven mvn cobertura:cobertura test'
       }
     }
     stage('report') {
@@ -21,30 +21,36 @@ pipeline {
         }
       }
     }
-    
-        stage('wait for confirm') {
-        input {
-            message "Should we deploy?"
-            ok "Yes, we should."
-            submitter "admin"
-            parameters {
-                string(name: 'PERSON', defaultValue: 'Mr Breezy', description: 'Who should I say hello to?')
-            }
+    stage('wait for confirm') {
+      input {
+        message 'Should we deploy?'
+        id 'Yes, we should.'
+        submitter 'admin'
+        parameters {
+          string(name: 'PERSON', defaultValue: 'Mr Breezy', description: 'Who should I say hello to?')
         }
-        steps {
-            echo "Hello, ${PERSON}, nice to meet you."
-        }
-    }  
-
-    
+      }
+      steps {
+        echo "Hello, ${PERSON}, nice to meet you."
+      }
+    }
     stage('mvn command') {
       steps {
-        sh 'mvn package'
+        sh 'docker run -v `pwd`:/app -v  $HOME/.m2:/root/.m2 -w /app -p 8800:8000 localhost:5000/maven mvn package'
       }
     }
     stage('archive') {
       steps {
         archiveArtifacts ' target/*.jar'
+      }
+    }
+    stage('deploy') {
+      steps {
+        sh '''docker build -t localhost:5000/spring-boot-sample-prod ./
+docker push localhost:5000/spring-boot-sample-prod
+docker pull localhost:5000/spring-boot-sample-prod
+docker run -d -p 8800:8000 localhost:5000/spring-boot-sample-prod
+'''
       }
     }
   }
