@@ -4,18 +4,25 @@ pipeline {
     stage('checkout project') {
       steps {
         checkout scm
+        sh 'mvn cobertura:cobertura test'
       }
     }
- }
-  post { 
-    always { 
+  }
+  post {
+    always {
       echo 'I will always say Hello again!'
+
     }
-    success { 
+
+    success {
       echo 'success!'
-    }  
-    failure { 
-      echo 'failure!'
+
     }
-  }    
+
+    failure {
+      echo 'failure!'
+
+    }
+
+  }
 }
