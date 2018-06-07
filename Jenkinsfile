@@ -16,7 +16,7 @@ pipeline {
         }
         stage('coverge') {
           steps {
-            cobertura(fileCoverageTargets: 'target/site/cobertura/coverage.xml')
+            cobertura(coberturaReportFile: 'target/site/cobertura/coverage.xml')
           }
         }
       }
