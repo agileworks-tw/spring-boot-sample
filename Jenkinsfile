@@ -21,6 +21,22 @@ pipeline {
         }
       }
     }
+    
+        stage('wait for confirm') {
+        input {
+            message "Should we deploy?"
+            ok "Yes, we should."
+            submitter "admin"
+            parameters {
+                string(name: 'PERSON', defaultValue: 'Mr Breezy', description: 'Who should I say hello to?')
+            }
+        }
+        steps {
+            echo "Hello, ${PERSON}, nice to meet you."
+        }
+    }  
+
+    
     stage('mvn command') {
       steps {
         sh 'mvn package'
