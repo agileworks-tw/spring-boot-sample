@@ -30,6 +30,11 @@ pipeline {
         sh 'mvn package'
       }
     }
+    stage('end') {
+      steps {
+        archiveArtifacts 'file location: target/*.jar'
+      }
+    }
   }
   post {
     always {
