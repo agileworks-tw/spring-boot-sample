@@ -6,16 +6,27 @@ pipeline {
         checkout scm
       }
     }
- }
-  post { 
-    always { 
+    stage('test') {
+      steps {
+        sh 'mvn cobertura:cobertura test'
+      }
+    }
+  }
+  post {
+    always {
       echo 'I will always say Hello again!'
+
     }
-    success { 
+
+    success {
       echo 'success!'
-    }  
-    failure { 
-      echo 'failure!'
+
     }
-  }    
+
+    failure {
+      echo 'failure!'
+
+    }
+
+  }
 }
