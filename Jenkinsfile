@@ -30,9 +30,9 @@ pipeline {
         sh 'mvn package'
       }
     }
-    stage('end') {
+    stage('archive') {
       steps {
-        archiveArtifacts 'file location: target/*.jar'
+        archiveArtifacts ' target/*.jar'
       }
     }
   }
