@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('checkout project') {
+    stage('checkout project&test') {
       steps {
         checkout scm
         sh 'mvn cobertura:cobertura test'
@@ -21,12 +21,12 @@ pipeline {
         }
       }
     }
-    stage('package') {
+    stage('mvn command') {
       steps {
         sh 'mvn package'
       }
     }
-    stage('package2') {
+    stage('archive') {
       steps {
         archiveArtifacts ' target/*.jar'
       }
