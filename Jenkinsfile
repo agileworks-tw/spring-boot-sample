@@ -27,7 +27,7 @@ pipeline {
     }
     stage('package') {
       steps {
-        archiveArtifacts 'mvn package'
+        sh 'mvn package'
       }
     }
   }
