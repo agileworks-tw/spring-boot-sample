@@ -7,10 +7,11 @@ build-docker-env:
 
 build-docker-prod-image:
 	docker build -t localhost:5000/java_sample_prod .
+	docker push localhost:5000/java_sample_prod
 
 deploy-production-local:
 	- docker rm -f java_sample_prod 
-	- docker run -d --name java_sample_prod -p 8800:8000 localhost:5000/java_sample_prod
+	docker run -d --name java_sample_prod -p 8800:8000 localhost:5000/java_sample_prod
 
 
 deploy-production-ssh:
